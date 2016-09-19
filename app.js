@@ -7,13 +7,13 @@ var express = require('express');
 // var routes = require('./routes');
 var http = require('http');
 var path = require('path');
+var errorhandler = require('errorhandler');
 
 var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-// app.set('view engine', 'pug');
 // app.use(express.favicon());
 // app.use(express.logger('dev'));
 // app.use(express.bodyParser());
@@ -22,10 +22,10 @@ app.set('views', __dirname + '/views');
 // app.use(express.static(path.join(__dirname, '/public/views')));
 // app.use(express.static(path.join(__dirname, '/views')));
 
-// development only
-// if ('development' == app.get('env')) {
-//   app.use(express.errorHandler());
-// }
+// Development only
+if ('development' == app.get('env')) {
+  app.use(errorhandler());
+}
 
 // app.get('/', routes.index);
 app.get('/',function(req,res){
@@ -33,6 +33,8 @@ app.get('/',function(req,res){
   //__dirname : It will resolve to your project folder.
 });
 
-app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
-  console.log('Listening on port 3000');
+var port = process.env.PORT || 3000;
+var hostName = process.env.IP || "0.0.0.0";
+app.listen(port, hostName, function(){
+  console.log('Listening on port ' + port + " " + "with hostname " + hostName);
 });
