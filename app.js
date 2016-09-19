@@ -19,7 +19,7 @@ app.set('views', __dirname + '/views');
 // app.use(express.bodyParser());
 // app.use(express.methodOverride());
 // app.use(app.router);
-app.use(express.static(path.join(__dirname, '/public/views')));
+// app.use(express.static(path.join(__dirname, '/public/views')));
 // app.use(express.static(path.join(__dirname, '/views')));
 
 // development only
@@ -28,8 +28,11 @@ app.use(express.static(path.join(__dirname, '/public/views')));
 // }
 
 // app.get('/', routes.index);
-// app.get('/', test.html);
+app.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+  //__dirname : It will resolve to your project folder.
+});
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
+  console.log('Listening on port 3000');
 });
